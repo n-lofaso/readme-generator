@@ -2,7 +2,31 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-// Function to generate README with users input
+// Function to get the license badge based on what licnese the user chose
+const getLicenseBadge = (license)=> {
+  if (license == "MIT") {
+    return `![License](https://img.shields.io/badge/license-MIT-blue.svg)`;
+  } else if (license == "APACHE 2.0") {
+    return `![License](https://img.shields.io/badge/license-APACHE%202.0-blue.svg)`;
+  } else if (license == "GPL 3.0") {
+    return `![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)`;
+  } else if (license == "BSD 3") {
+    return `![License](https://img.shields.io/badge/license-BSD%203.0-blue.svg)`;
+  } else if (license == "N/A") {
+    return ``;
+  };
+};
+
+// Function to get the license based on what the user chose and what to display on the README
+const getLicense = (license)=> {
+  if (license == "N/A") {
+    return `This project is not under any license.`;
+  }else {
+    return `This project is licensed under the ${license} license.`;
+  }
+};
+
+// Function to generate README and populate it with the users input
 const generateREADME = ({
   title,
   description,
@@ -13,44 +37,49 @@ const generateREADME = ({
   github,
   email,
   license,
-}) =>
+}) => 
   `# ${title}
-        
-        ## Description
-        ${description}
 
-        ## Table of Contents
-        
-        - [Installation](#installation)
-        - [Usage](#usage)
-        - [Contribution](#contribution)
-        - [Testing](#Testing)
-        - [Questions](#Questions)
-        - [License](#license)
+  ${getLicenseBadge(license)}
+          
+  ## Description
+  ${description}
 
-        ## Installation 
-        ${installation}
-    
-        ## Usage
-        ${usage}
-    
-        ## Contribution
-        ${contribution}
-    
-        ## Testing
-        ${testing}
-  
-        ## Questions
-        If you have anyfurther questions reach me on
-        Github:${github}
-        Email:${email}
-  
-        ## License
-        ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-        ${license}
-    `;
+  ## Table of Contents
+          
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contribution](#contribution)
+  - [Testing](#Testing)
+  - [Questions](#Questions)
+  - [License](#license)
 
-// Prompt user for info to put into the README file
+  ## Installation 
+
+  ${installation}
+      
+  ## Usage
+
+  ${usage}
+      
+  ## Contribution
+
+  ${contribution}
+      
+  ## Testing
+
+  ${testing}
+    
+  ## Questions
+
+  If you have anyfurther questions reach me on
+  Github: ${github}
+  Email: ${email}
+    
+ ## License
+  ${getLicense(license)}`;
+ 
+// Using inquirer to give the user a prompt for each part of the README
 inquirer
   .prompt([
     {
@@ -97,16 +126,12 @@ inquirer
       type: 'list',
       name: 'license',
       message: 'Please select one license:',
-      choices: [
-        'MIT License',
-        'Apache License 2.0',
-        'GNU General Public License v3.0',
-      ],
+      choices: ['MIT','APACHE 2.0','GPL 3.0','BSD 3','N/A'],
     },
   ])
   .then((answers) => {
     const readMeInfo = generateREADME(answers);
-    //  Creates README file with the users input or gives error if somethings wrong
+    //  Creates README file with the users input or gives error if something goes wrong
     fs.writeFile('README.md', readMeInfo, (err) =>
       err
         ? console.log(err)
