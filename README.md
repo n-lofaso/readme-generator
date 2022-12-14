@@ -6,11 +6,11 @@
 
   ## Installation 
     
-    To install this program and use it correctly make sure you have node.js version 16 installed on your computer. Then once you open the program in vscode open the terminal and enter the command "npm init -y", This will initiate the package.json file. Then use "npm i" to install all the modules.
+   To install this program and use it correctly make sure you have node.js version 16 installed on your computer. Then once you open the program in vscode open the terminal and enter the command "npm init -y", This will initiate the package.json file. Then use "npm i" to install all the modules.
       
   ## Usage
 
-    Once everythings installed use the command "node index.js" to run the application. Now enter all your information and once you get to the license section select one of the options. After all the prompts are completed you should see your new readme file be created.   
+   Once everythings installed use the command "node index.js" to run the application. Now enter all your information and once you get to the license section select one of the options. After all the prompts are completed you should see your new readme file be created.   
     
   ## Questions
 
